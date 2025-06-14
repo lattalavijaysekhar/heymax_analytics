@@ -3,7 +3,7 @@ from google.cloud import bigquery
 def load_from_gcs_to_bq():
     client = bigquery.Client()
     uri = "gs://heymax-raw/events/sample_events.csv"
-    table_id = "your-project.heymax_staging.raw_events"
+    table_id = "heymax-analytics.heymax_staging.raw_events"
     job_config = bigquery.LoadJobConfig(
         source_format=bigquery.SourceFormat.CSV,
         autodetect=True,
