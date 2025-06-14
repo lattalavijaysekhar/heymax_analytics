@@ -2,7 +2,6 @@ from google.cloud import storage
 import os
 
 def upload_to_gcs(bucket_name, source_file_path, destination_blob_path):
-    os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "path/to/service_account.json"
     client = storage.Client()
     bucket = client.bucket(bucket_name)
     blob = bucket.blob(destination_blob_path)
