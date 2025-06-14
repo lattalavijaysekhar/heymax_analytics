@@ -1,0 +1,29 @@
+version: 2
+
+models:
+  - name: dim_users
+    description: "User dimension with first and last activity"
+    columns:
+      - name: user_id
+        tests:
+          - not_null
+          - unique
+      - name: first_seen
+        tests:
+          - not_null
+      - name: last_seen
+        tests:
+          - not_null
+
+  - name: fct_events
+    description: "Fact table with daily user events"
+    columns:
+      - name: user_id
+        tests:
+          - not_null
+      - name: event_date
+        tests:
+          - not_null
+      - name: event_type
+        tests:
+          - not_null
