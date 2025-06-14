@@ -42,5 +42,6 @@ if __name__ == "__main__":
     except Exception as e:
         print("Unhandled error in main:")
         print(f"Message: {str(e)}")
+        print(f"Errors: {load_job.errors}")
         traceback.print_exc()
         raise
