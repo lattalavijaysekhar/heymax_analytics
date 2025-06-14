@@ -18,15 +18,12 @@ def run_script(script_name):
 
 default_args = {
     'owner': 'airflow',
-    'start_date': days_ago(1),
-    'retries': 1,
-    'on_failure_callback': notify_slack
+    'start_date': days_ago(1)
 }
 
 with DAG(
     dag_id="daily_event_pipeline",
     default_args=default_args,
-    schedule_interval="*/10 * * * *",  # Every 10 minutes
     catchup=False,
     tags=["heymax", "analytics"]
 ) as dag:

@@ -39,5 +39,5 @@ jobs:
         if: failure()
         run: |
           curl -X POST -H 'Content-type: application/json' \
-            --data '{"text":"❌ dbt CI failed for HeyMax Analytics"}' \
+            --data '{"text":"dbt CI failed for HeyMax Analytics"}' \
             ${{ secrets.SLACK_WEBHOOK_URL }}
