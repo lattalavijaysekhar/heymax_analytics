@@ -1,1 +1,43 @@
-# GitHub Actions CI/CD
+name: dbt CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  dbt-checks:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install dbt-bigquery
+
+      - name: dbt debug
+        run: dbt debug --profiles-dir dbt/heymax_dbt
+
+      - name: dbt run
+        run: dbt run --profiles-dir dbt/heymax_dbt
+
+      - name: dbt test
+        run: dbt test --profiles-dir dbt/heymax_dbt
+
+      - name: Notify Slack on Failure
+        if: failure()
+        run: |
+          curl -X POST -H 'Content-type: application/json' \
+            --data '{"text":"❌ dbt CI failed for HeyMax Analytics"}' \
+            ${{ secrets.SLACK_WEBHOOK_URL }}
