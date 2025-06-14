@@ -36,7 +36,7 @@ if __name__ == "__main__":
         load_to_bigquery(
             dataset_id="heymax_staging",
             table_id="stg_events",
-            source_uri="gs://heymax-raw/event_stream.csv",
+            source_uri="gs://heymax-raw/events/event_stream.csv",
             project_id="heymax-analytics"
         )
     except Exception as e:
