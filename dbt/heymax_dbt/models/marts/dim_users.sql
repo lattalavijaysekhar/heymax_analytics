@@ -14,5 +14,5 @@ FROM `heymax-analytics.heymax_staging.stg_events`
 GROUP BY user_id,platform,utm_source,country
 
 {% if is_incremental() %}
-  HAVING MAX(event_timestamp) > (SELECT MAX(last_seen) FROM {{ this }})
+  HAVING MAX(event_time) > (SELECT MAX(last_seen) FROM {{ this }})
 {% endif %}
