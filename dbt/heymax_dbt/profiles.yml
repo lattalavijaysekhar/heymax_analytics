@@ -1,0 +1,12 @@
+heymax_dbt:
+  target: dev
+  outputs:
+    dev:
+      type: bigquery
+      method: service-account
+      project: heymax-analytics
+      dataset: heymax_datamart
+      keyfile: /home/airflow/gcs/dags/dbt/heymax_dbt/keys/service_account.json
+      threads: 4
+      timeout_seconds: 300
+      location: asia-southeast1

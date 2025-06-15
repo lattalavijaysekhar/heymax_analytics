@@ -1,0 +1,16 @@
+name: 'heymax_dbt'
+version: '1.0'
+config-version: 2
+
+profile: 'heymax_dbt'
+
+model-paths: ["models"]
+target-path: "target"
+clean-targets:
+  - "target"
+  - "dbt_modules"
+
+models:
+  heymax_dbt:
+    marts:
+      +materialized: table

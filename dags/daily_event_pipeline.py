@@ -19,13 +19,15 @@ def run_script(script_name):
 default_args = {
     'owner': 'airflow',
     'start_date': days_ago(1),
+    'retries': 1,
     'on_failure_callback': notify_slack
 }
 
 with DAG(
     dag_id="daily_event_pipeline",
     default_args=default_args,
-    schedule_interval="*/10 * * * *",  # every 10 minutes
+    max_active_runs=1,
+    schedule_interval="*/10 * * * *",  # Every 10 minutes
     catchup=False,
     tags=["heymax", "analytics"]
 ) as dag:
@@ -42,14 +44,9 @@ with DAG(
         op_args=["load_to_bigquery.py"]
     )
 
-    run_stg_events = BashOperator(
-        task_id="run_stg_events_model",
-        bash_command="cd /home/airflow/gcs/dags/dbt/heymax_dbt && dbt run --select stg_events --full-refresh --profiles-dir ."
-    )
-
-    run_other_models = BashOperator(
-        task_id="run_other_dbt_models",
-        bash_command="cd /home/airflow/gcs/dags/dbt/heymax_dbt && dbt run --exclude stg_events --profiles-dir ."
+    run_dbt = BashOperator(
+        task_id="run_dbt_models",
+        bash_command="cd /home/airflow/gcs/dags/dbt/heymax_dbt && dbt run --profiles-dir ."
     )
 
     test_dbt = BashOperator(
@@ -57,4 +54,4 @@ with DAG(
         bash_command="cd /home/airflow/gcs/dags/dbt/heymax_dbt && dbt test --profiles-dir ."
     )
 
-    upload_csv >> load_bq >> run_stg_events >> run_other_models >> test_dbt
+    upload_csv >> load_bq >> run_dbt >> test_dbt

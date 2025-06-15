@@ -1,5 +1,0 @@
-heymax:
-  target: dev
-  outputs:
-    dev:
-      type: bigquery
