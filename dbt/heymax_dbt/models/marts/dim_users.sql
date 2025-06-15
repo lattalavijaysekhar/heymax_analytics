@@ -5,13 +5,11 @@
 
 SELECT
   user_id,
-  platform,
-  utm_source,
   country,
   MIN(event_time) AS first_seen,
   MAX(event_time) AS last_seen
 FROM `heymax-analytics.heymax_staging.stg_events`
-GROUP BY user_id,platform,utm_source,country
+GROUP BY user_id,country
 
 {% if is_incremental() %}
   HAVING MAX(event_time) > (SELECT MAX(last_seen) FROM {{ this }})
