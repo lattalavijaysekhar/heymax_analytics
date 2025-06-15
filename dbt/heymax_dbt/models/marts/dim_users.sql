@@ -8,8 +8,8 @@ SELECT
   platform,
   utm_source,
   country,
-  MIN(event_timestamp) AS first_seen,
-  MAX(event_timestamp) AS last_seen
+  MIN(event_time) AS first_seen,
+  MAX(event_time) AS last_seen
 FROM `heymax-analytics.heymax_staging.stg_events`
 GROUP BY user_id,platform,utm_source,country
 
