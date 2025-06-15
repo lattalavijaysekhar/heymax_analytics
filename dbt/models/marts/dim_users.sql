@@ -11,7 +11,7 @@ SELECT
   country,
   MIN(event_timestamp) AS first_seen,
   MAX(event_timestamp) AS last_seen
-FROM {{ ref('stg_events') }}
+FROM `heymax-analytics.heymax_staging.stg_events`
 GROUP BY user_id,platform,utm_source,country
 
 {% if is_incremental() %}
