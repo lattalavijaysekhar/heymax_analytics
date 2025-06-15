@@ -6,5 +6,5 @@
 SELECT * FROM `heymax-analytics.heymax_staging.stg_events`
 
 {% if is_incremental() %}
-  HAVING MAX(event_time) > (SELECT MAX(event_time) FROM {{ this }})
+  WHERE event_time > (SELECT MAX(event_time) FROM {{ this }})
 {% endif %}
