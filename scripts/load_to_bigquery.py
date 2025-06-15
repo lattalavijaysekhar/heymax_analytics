@@ -11,7 +11,7 @@ def load_to_bigquery(dataset_id, table_id, source_uri, project_id):
             autodetect=True,
             source_format=bigquery.SourceFormat.CSV,
             skip_leading_rows=1,
-            write_disposition=bigquery.WriteDisposition.WRITE_APPEND,
+            write_disposition=bigquery.WriteDisposition.WRITE_TRUNCATE,
         )
 
         load_job = client.load_table_from_uri(
