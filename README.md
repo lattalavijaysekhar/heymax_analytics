@@ -31,7 +31,6 @@ Local CSV → GCS → BigQuery (Staging) → dbt Models → Superset
 
 - Active Users (DAU/WAU/MAU)
 - New vs Retained vs Resurrected vs Churned
-- Triangle Retention (cohort-based)
 
 ## ✅ Execution Steps
 
