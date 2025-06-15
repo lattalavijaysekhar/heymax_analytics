@@ -1,7 +1,6 @@
 {{ config(
     materialized='incremental',
-    unique_key='user_id',
-    schema='heymax_datamart'
+    unique_key='user_id'
 ) }}
 
 SELECT
