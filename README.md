@@ -23,7 +23,7 @@ Local CSV → GCS → BigQuery (Staging) → dbt Models → Superset
 - `dags/`: Airflow DAG with Slack alert integration
 - `dbt/heymax_dbt/`: Models, tests, docs, and configs
 - `scripts/`: Utility scripts for GCS/BQ
-- `superset/`: Dashboard setup instructions
+- `superset/`: Dashboard setup instructions, Sample Visualizations pdf, and View Query
 - `.github/workflows/`: dbt CI
 - `data/`: Sample CSV
 
@@ -35,23 +35,17 @@ Local CSV → GCS → BigQuery (Staging) → dbt Models → Superset
 
 ## ✅ Execution Steps
 
-1. Upload file to GCS:
-```bash
-python scripts/load_to_gcs.py
+1. Run Airflow DAG (`daily_event_pipeline`) via Composer or UI.
+```
+This is scheduled to run for every 10 minutes and will run all the above scripts mentioned in the flow.
 ```
 
-2. Load from GCS to BigQuery:
-```bash
-python scripts/load_to_bigquery.py
-```
+2. View tables in BigQuery:
+- `heymax-analytics.heymax_staging.stg_events`
+- `heymax-analytics.heymax_datamart.dim_users`
+- `heymax-analytics.heymax_datamart.fct_events`
 
-3. Run Airflow DAG (`daily_event_pipeline`) via Composer or UI.
-
-4. View tables in BigQuery:
-- `heymax_analytics.dim_users`
-- `heymax_analytics.fct_events`
-
-5. Visualize in Superset.
+3. Visualize in Superset.
 
 ## 🚨 Alerting
 
