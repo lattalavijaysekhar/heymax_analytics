@@ -1,10 +1,10 @@
 {{ config(
     materialized='incremental',
-    unique_key='user_id||event_date||event_type'
+    unique_key='user_id||event_time||event_type'
 ) }}
 
 SELECT * FROM `heymax-analytics.heymax_staging.stg_events`
 
 {% if is_incremental() %}
-  HAVING MAX(DATE(event_timestamp)) > (SELECT MAX(event_date) FROM {{ this }})
+  HAVING MAX(DATE(event_time)) > (SELECT MAX(event_time) FROM {{ this }})
 {% endif %}
