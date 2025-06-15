@@ -1,7 +1,6 @@
 {{ config(
     materialized='incremental',
-    unique_key='user_id||event_date||event_type',
-    schema='heymax_datamart'
+    unique_key='user_id||event_date||event_type'
 ) }}
 
 SELECT * FROM `heymax-analytics.heymax_staging.stg_events`
