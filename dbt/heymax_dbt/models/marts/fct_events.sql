@@ -20,5 +20,5 @@ WITH base AS (
 SELECT *
 FROM base
 {% if is_incremental() %}
-WHERE event_date > (SELECT MAX(event_date) FROM {{ this }})
+WHERE DATE(event_time) > (SELECT MAX(event_date) FROM {{ this }})
 {% endif %}
