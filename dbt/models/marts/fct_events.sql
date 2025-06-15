@@ -4,7 +4,7 @@
     schema='heymax_datamart'
 ) }}
 
-SELECT * FROM {{ ref('staging_events') }}
+SELECT * FROM `heymax-analytics.heymax_staging.stg_events`
 
 {% if is_incremental() %}
   HAVING MAX(DATE(event_timestamp)) > (SELECT MAX(event_date) FROM {{ this }})
