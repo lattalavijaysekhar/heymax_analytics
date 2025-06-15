@@ -72,6 +72,7 @@ Airflow DAG includes a Slack webhook for failure alerts. Configure it via ENV va
 
 ## 📌 Assumptions
 
+- Levraging current architecture of HeyMax.
 - CSVs follow a consistent schema and are UTF-8 encoded.
 - Events contain a valid `user_id`, `event_type`, and `event_timestamp`.
 - Airflow and Superset environments are preconfigured with appropriate service account permissions.
