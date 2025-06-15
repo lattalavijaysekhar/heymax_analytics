@@ -1,1 +1,1 @@
-# dbt models folder
+# dummy file to keep folders align
