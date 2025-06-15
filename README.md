@@ -51,4 +51,33 @@ This is scheduled to run for every 10 minutes and will run all the above scripts
 
 Airflow DAG includes a Slack webhook for failure alerts. Configure it via ENV variable: `SLACK_WEBHOOK_URL`.
 
+## 🧠 Design Tradeoffs
+
+- **Batch vs Streaming**: Opted for micro-batch (every 10 minutes) using Airflow for cost-effectiveness and simplicity. This balances latency and infrastructure overhead while still supporting near real-time use cases.
+- **Storage-first approach**: GCS is used as a landing zone to enable replayability, versioning, and future enhancements like schema validation or file-based audit trails.
+- **dbt as transformation layer**: Chosen for modularity, documentation, version control, and testability, but requires onboarding effort for new contributors unfamiliar with it.
+- **Superset for BI**: Free, open-source, and extensible—but compared to commercial tools, it may have limitations around complex drill-downs and export flexibility.
+
+## 🧪 Testing
+
+- **Unit Testing in dbt**: dbt tests added for uniqueness, null checks, referential integrity.
+- **CI via GitHub Actions**: Validates dbt model builds on every push.
+- **Manual Testing**: Local testing of DAGs, data files, and transformations prior to deployment.
+- **Data Quality Alerts**: Can be extended to check row counts, freshness, or anomalies before reporting.
+
+## 📈 Scaling Considerations
+
+- **Data Volume**: BigQuery is scalable; ensure partitions and clustering in `fct_events` for optimal query performance.
+- **Orchestration**: Composer (Airflow) supports scaling with DAG concurrency and worker pools.
+- **Modular dbt Models**: Allows refactoring without touching all layers; supports snapshotting and incremental loads.
+- **Superset**: Can be containerized and scaled with Gunicorn and Celery workers for concurrent dashboard users.
+
+## 📌 Assumptions
+
+- CSVs follow a consistent schema and are UTF-8 encoded.
+- Events contain a valid `user_id`, `event_type`, and `event_timestamp`.
+- Airflow and Superset environments are preconfigured with appropriate service account permissions.
+- dbt is connected to BigQuery via `profiles.yml` under the correct target (e.g., `prod`).
+- CI/CD pipelines have access to secret variables (e.g., GCP credentials, Slack webhook).
+- Time zone defaults to UTC unless specified.
 ---
