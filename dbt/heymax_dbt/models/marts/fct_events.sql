@@ -1,6 +1,11 @@
 {{ config(
     materialized='incremental',
-    unique_key='user_id||event_date||event_type'
+    unique_key='user_id||event_date||event_type',
+    partition_by={
+        "field": "event_date",
+        "data_type": "date"
+    },
+    cluster_by=["user_id"]
 ) }}
 
 WITH base AS (
