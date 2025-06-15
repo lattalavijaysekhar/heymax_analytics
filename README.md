@@ -35,9 +35,9 @@ Local CSV → GCS → BigQuery (Staging) → dbt Models → Superset
 ## ✅ Execution Steps
 
 1. Run Airflow DAG (`daily_event_pipeline`) via Composer or UI.
-```
+
 This is scheduled to run for every 10 minutes and will run all the above scripts mentioned in the flow.
-```
+
 
 2. View tables in BigQuery:
 - `heymax-analytics.heymax_staging.stg_events`
