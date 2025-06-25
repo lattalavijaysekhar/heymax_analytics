@@ -67,7 +67,7 @@ Airflow DAG includes a Slack webhook for failure alerts. Configure it via ENV va
 - **Data Volume**: BigQuery is scalable; partitioned by event_date and clustered by user_id in `fct_events` for optimal query performance.
 - **Orchestration**: Composer (Airflow) supports scaling with DAG concurrency and worker pools.
 - **Modular dbt Models**: Allows refactoring without touching all layers; supports snapshotting and incremental loads.
-- **Superset**: Can be containerized and scaled with Gunicorn and Celery workers for concurrent dashboard users.
+
 
 ## 📌 Assumptions
 
