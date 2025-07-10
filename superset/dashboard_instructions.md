@@ -6,5 +6,4 @@
 4. Create charts:
    - DAU/WAU/MAU: Count distinct user_id over time
    - New vs Retained: Compare first_seen vs activity
-   - Triangle Retention: Cohort matrix
 5. Pin charts to a dashboard
